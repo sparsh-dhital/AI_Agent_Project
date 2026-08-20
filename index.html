@@ -3,96 +3,71 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Orbit, a thoughtful AI assistant interface.">
-  <title>Orbit | AI Chat</title>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <title>Orbit AI | Premium</title>
+  
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='14' fill='%23030712' /><circle cx='16' cy='16' r='8' stroke='%236366f1' stroke-width='2' stroke-dasharray='32 10' /><circle cx='16' cy='16' r='3' fill='%23818cf8' /></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=6">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="app-shell">
-    <header class="topbar">
-      <a class="brand" href="#" aria-label="Orbit home">
-        <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
-        <span>orbit</span>
-      </a>
-      <div class="topbar-actions">
-        <span class="status-pill"><span class="status-dot"></span> Online</span>
-        <button class="icon-button" id="themeButton" type="button" aria-label="Toggle color theme" title="Toggle color theme">◐</button>
-        <div class="avatar" aria-label="Alex Morgan">AM</div>
-      </div>
-    </header>
 
-    <main class="workspace">
-      <aside class="sidebar">
-        <div class="sidebar-heading">
-          <p class="eyebrow">Workspace</p>
-          <button class="new-chat-button" id="newChatButton" type="button"><span>+</span> New chat</button>
-        </div>
-        <nav class="history" aria-label="Chat history">
-          <p class="history-label">Today</p>
-          <button class="history-item active" type="button"><span class="history-icon">✦</span><span>Untitled conversation</span></button>
-          <p class="history-label older">Previous 7 days</p>
-          <button class="history-item" type="button"><span class="history-icon">◌</span><span>Planning a better week</span></button>
-          <button class="history-item" type="button"><span class="history-icon">◌</span><span>Notes on creative work</span></button>
-        </nav>
-        <div class="sidebar-footer">
-          <div class="pro-card">
-            <div class="pro-icon">✦</div>
-            <div><strong>Make space to think</strong><p>Explore Orbit Pro</p></div>
-            <span class="arrow">↗</span>
-          </div>
-          <button class="settings-button" type="button"><span>⚙</span> Settings</button>
-        </div>
-      </aside>
-
-      <section class="chat-panel" aria-label="Chat with Orbit">
-        <div class="chat-header">
-          <div>
-            <p class="eyebrow">Chat</p>
-            <h1>Orbit <span>·</span> <em>your AI friend</em></h1>
-          </div>
-          <div class="chat-header-actions">
-            <button class="more-button" id="moreButton" type="button" aria-label="More conversation options" aria-expanded="false" title="More options">•••</button>
-            <div class="more-menu" id="moreMenu" role="menu">
-              <button id="clearChatButton" type="button" role="menuitem">Clear chat</button>
-              <button id="copyReplyButton" type="button" role="menuitem">Copy last reply</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="conversation" id="conversation" aria-live="polite">
-          <div class="welcome-row message-row assistant-row">
-            <div class="assistant-avatar" aria-hidden="true">✦</div>
-            <div class="message-content">
-              <div class="message-meta"><strong>Orbit</strong><span>Just now</span></div>
-              <div class="message-bubble welcome-bubble">Hello, Alex. I’m here to help you untangle ideas, make a plan, or simply get started. What’s on your mind?</div>
-            </div>
-          </div>
-          <div class="suggestions" id="suggestions">
-            <button class="suggestion" type="button" data-prompt="Help me plan my week"><span>✦</span> Help me plan my week</button>
-            <button class="suggestion" type="button" data-prompt="Give me a creative prompt"><span>✧</span> Give me a creative prompt</button>
-            <button class="suggestion" type="button" data-prompt="Help me think through a decision"><span>◈</span> Think through a decision</button>
-          </div>
-        </div>
-
-        <div class="composer-wrap">
-          <form class="composer" id="chatForm">
-            <textarea id="messageInput" rows="1" placeholder="Ask Orbit anything..." aria-label="Message Orbit"></textarea>
-            <div class="composer-tools">
-              <button class="tool-button" id="attachButton" type="button" aria-label="Attach a file" title="Attach a file">＋</button>
-              <input id="fileInput" type="file" hidden>
-              <span class="composer-hint">Press Enter to send <kbd>↵</kbd></span>
-              <button class="send-button" type="submit" aria-label="Send message" title="Send message">↑</button>
-            </div>
-          </form>
-          <p class="disclaimer">Orbit can make mistakes. Check important information.</p>
-        </div>
-      </section>
-    </main>
+  <!-- Animated Background Orbs -->
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
   </div>
-  <script src="script.js?v=5"></script>
+
+  <div class="app-wrapper">
+    
+    <!-- Slide-out Sidebar for Chat History -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>History</h2>
+            <button id="closeSidebar" class="icon-btn">✕</button>
+        </div>
+        <button id="newChatBtn" class="new-chat-btn">+ New Conversation</button>
+        <div class="history-list" id="historyList">
+            <!-- Dynamic chats load here -->
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        
+        <!-- Sleek Top Navigation -->
+        <header class="glass-header">
+          <!-- 1. Hamburger Menu (Pushed to Far Left) -->
+          <button id="menuBtn" class="icon-btn menu-btn" title="Menu">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+          </button>
+
+          <!-- 2. Orbit Brand (Pushed to Far Right) -->
+          <div class="brand">
+            <div class="logo-ring"></div>
+            <span>Orbit</span>
+          </div>
+        </header>
+
+        <!-- Main Chat Window -->
+        <main class="chat-viewport">
+          <div id="conversation" class="feed"></div>
+        </main>
+
+        <!-- Floating Composer -->
+        <footer class="composer-container">
+          <form id="chatForm" class="glass-composer">
+            <textarea id="messageInput" rows="1" placeholder="Type your destination..." autofocus></textarea>
+            <button type="submit" id="sendBtn" class="send-btn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            </button>
+          </form>
+        </footer>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
