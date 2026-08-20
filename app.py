@@ -12,6 +12,12 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app)
 
+# --- ADDED: Home route to prevent 404 errors on the main page ---
+@app.route("/")
+def home():
+    return "<h1>CampusMove AI Backend is Running Successfully!</h1><p>Visit <a href='/api/routes'>/api/routes</a> to see your bus data.</p>"
+# -----------------------------------------------------------------
+
 mongo_uri = os.getenv("MONGO_URI")
 mongo_client = MongoClient(mongo_uri, serverSelectionTimeoutMS=5000) if mongo_uri else None
 database = mongo_client[os.getenv("MONGO_DB", "campusmoveai")] if mongo_client else None
