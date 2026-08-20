@@ -33,12 +33,13 @@ function getResponse(message) {
 }
 
 function addMessage(text, type) {
+  const safeText = String(text).replace(/</g, '&lt;').replace(/>/g, '&gt;');
   const row = document.createElement('div');
   row.className = `message-row ${type}-row`;
   const now = type === 'user' ? 'Just now' : 'A moment ago';
   row.innerHTML = type === 'assistant'
-    ? `<div class="assistant-avatar" aria-hidden="true">✦</div><div class="message-content"><div class="message-meta"><strong>Orbit</strong><span>${now}</span></div><div class="message-bubble">${text}</div></div>`
-    : `<div class="message-content"><div class="message-meta"><strong>You</strong><span>${now}</span></div><div class="message-bubble">${text}</div></div>`;
+    ? `<div class="assistant-avatar" aria-hidden="true">✦</div><div class="message-content"><div class="message-meta"><strong>Orbit</strong><span>${now}</span></div><div class="message-bubble">${safeText}</div></div>`
+    : `<div class="message-content"><div class="message-meta"><strong>You</strong><span>${now}</span></div><div class="message-bubble">${safeText}</div></div>`;
   conversation.appendChild(row);
   row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
@@ -63,15 +64,20 @@ function showToast(message) {
 function sendMessage(message) {
   const cleanMessage = message.trim();
   if (!cleanMessage) return;
-  addMessage(cleanMessage.replace(/</g, '&lt;').replace(/>/g, '&gt;'), 'user');
+  addMessage(cleanMessage, 'user');
   input.value = '';
   input.style.height = 'auto';
   suggestions?.remove();
   showTyping();
-  window.setTimeout(() => {
-    document.querySelector('#typingIndicator')?.remove();
-    addMessage(getResponse(cleanMessage), 'assistant');
-  }, 650);
+  fetch('http://127.0.0.1:5000/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: cleanMessage })
+  })
+    .then((response) => response.ok ? response.json() : Promise.reject(new Error('API unavailable')))
+    .then((data) => addMessage(data.answer, 'assistant'))
+    .catch(() => addMessage(getResponse(cleanMessage), 'assistant'))
+    .finally(() => document.querySelector('#typingIndicator')?.remove());
 }
 
 form.addEventListener('submit', (event) => {
