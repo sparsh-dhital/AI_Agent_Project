@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Orbit, a thoughtful AI assistant interface.">
+  <title>Orbit | AI Chat</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=6">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Orbit home">
+        <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span>orbit</span>
+      </a>
+      <div class="topbar-actions">
+        <span class="status-pill"><span class="status-dot"></span> Online</span>
+        <button class="icon-button" id="themeButton" type="button" aria-label="Toggle color theme" title="Toggle color theme">◐</button>
+        <div class="avatar" aria-label="Alex Morgan">AM</div>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <aside class="sidebar">
+        <div class="sidebar-heading">
+          <p class="eyebrow">Workspace</p>
+          <button class="new-chat-button" id="newChatButton" type="button"><span>+</span> New chat</button>
+        </div>
+        <nav class="history" aria-label="Chat history">
+          <p class="history-label">Today</p>
+          <button class="history-item active" type="button"><span class="history-icon">✦</span><span>Untitled conversation</span></button>
+          <p class="history-label older">Previous 7 days</p>
+          <button class="history-item" type="button"><span class="history-icon">◌</span><span>Planning a better week</span></button>
+          <button class="history-item" type="button"><span class="history-icon">◌</span><span>Notes on creative work</span></button>
+        </nav>
+        <div class="sidebar-footer">
+          <div class="pro-card">
+            <div class="pro-icon">✦</div>
+            <div><strong>Make space to think</strong><p>Explore Orbit Pro</p></div>
+            <span class="arrow">↗</span>
+          </div>
+          <button class="settings-button" type="button"><span>⚙</span> Settings</button>
+        </div>
+      </aside>
+
+      <section class="chat-panel" aria-label="Chat with Orbit">
+        <div class="chat-header">
+          <div>
+            <p class="eyebrow">Chat</p>
+            <h1>Orbit <span>·</span> <em>your AI friend</em></h1>
+          </div>
+          <div class="chat-header-actions">
+            <button class="more-button" id="moreButton" type="button" aria-label="More conversation options" aria-expanded="false" title="More options">•••</button>
+            <div class="more-menu" id="moreMenu" role="menu">
+              <button id="clearChatButton" type="button" role="menuitem">Clear chat</button>
+              <button id="copyReplyButton" type="button" role="menuitem">Copy last reply</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="conversation" id="conversation" aria-live="polite">
+          <div class="welcome-row message-row assistant-row">
+            <div class="assistant-avatar" aria-hidden="true">✦</div>
+            <div class="message-content">
+              <div class="message-meta"><strong>Orbit</strong><span>Just now</span></div>
+              <div class="message-bubble welcome-bubble">Hello, Alex. I’m here to help you untangle ideas, make a plan, or simply get started. What’s on your mind?</div>
+            </div>
+          </div>
+          <div class="suggestions" id="suggestions">
+            <button class="suggestion" type="button" data-prompt="Help me plan my week"><span>✦</span> Help me plan my week</button>
+            <button class="suggestion" type="button" data-prompt="Give me a creative prompt"><span>✧</span> Give me a creative prompt</button>
+            <button class="suggestion" type="button" data-prompt="Help me think through a decision"><span>◈</span> Think through a decision</button>
+          </div>
+        </div>
+
+        <div class="composer-wrap">
+          <form class="composer" id="chatForm">
+            <textarea id="messageInput" rows="1" placeholder="Ask Orbit anything..." aria-label="Message Orbit"></textarea>
+            <div class="composer-tools">
+              <button class="tool-button" id="attachButton" type="button" aria-label="Attach a file" title="Attach a file">＋</button>
+              <input id="fileInput" type="file" hidden>
+              <span class="composer-hint">Press Enter to send <kbd>↵</kbd></span>
+              <button class="send-button" type="submit" aria-label="Send message" title="Send message">↑</button>
+            </div>
+          </form>
+          <p class="disclaimer">Orbit can make mistakes. Check important information.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="script.js?v=5"></script>
+</body>
+</html>
